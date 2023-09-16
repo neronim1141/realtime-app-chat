@@ -1,24 +1,20 @@
 "use client";
 import Button from "@/src/components/ui/Button";
+import { useMutation } from "@tanstack/react-query";
 import { signIn } from "next-auth/react";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { toast } from "react-hot-toast";
 
 interface LoginPageProps {}
 
 const LoginPage: FC<LoginPageProps> = ({}) => {
-  const [isLoading, setIsLoading] = useState(false);
-  async function loginWithGoogle() {
-    setIsLoading(true);
-    try {
-      await signIn("google");
-    } catch (error) {
-      // display error message to user
+  const { mutate, isLoading } = useMutation({
+    mutationFn: () => signIn("google"),
+    onError: () => {
       toast.error("Something went wrong with your login");
-    } finally {
-      setIsLoading(false);
-    }
-  }
+    },
+  });
+
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-6">
       <div className="w-full flex flex-col items-center max-w-md space-y-8">
@@ -32,7 +28,7 @@ const LoginPage: FC<LoginPageProps> = ({}) => {
           isLoading={isLoading}
           type="button"
           className="max-w-sm mx-auto w-full"
-          onClick={loginWithGoogle}
+          onClick={() => mutate()}
         >
           {isLoading ? null : (
             <svg

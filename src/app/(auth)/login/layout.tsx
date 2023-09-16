@@ -1,6 +1,6 @@
-import { FC, ReactNode } from "react";
+import { getUser } from "@/src/features/chat/server/utils/getUser.util";
 import { redirect } from "next/navigation";
-import { getUser } from "@/src/lib/helpers/auth";
+import { FC, ReactNode } from "react";
 
 interface AuthLayoutProps {
   children: ReactNode;

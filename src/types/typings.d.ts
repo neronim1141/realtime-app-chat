@@ -1,4 +1,4 @@
-import { Icon } from "@/src/components/Icons";
+import { Icon } from "@/src/components/Logo";
 
 interface SidebarOption {
   id: number;
